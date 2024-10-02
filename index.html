@@ -64,13 +64,17 @@
             const invitationName = document.getElementById('invitationName').value;
             const invitationTime = document.getElementById('invitationTime').value;
             const invitationNewName = invitationName.replace(/ /g, '+');
+			let invitationHeader = "";
             
             let invitationLink;
             if (invitationDate === "Jumat,11 Oktober 2024") {
                 invitationLink = `https://www.eundangan.id/wikanka-photography/rsi-gana-11okt/?to=${invitationNewName}`;
+				invitationHeader = "Atas asung kerta wara nugraha Ida Sang Hyang Widhi Wasa, tanpa mengurangi rasa hormat, karena keterbatasan jarak dan waktu, kami bermaksud mengundang Bapak/Ibu/Saudara/i dalam Upakara Rsi Gana pada:"
             } else if (invitationDate === "Rabu,16 Oktober 2024") {
+				invitationHeader = "Atas asung kerta wara nugraha Ida Sang Hyang Widhi Wasa, tanpa mengurangi rasa hormat, karena keterbatasan jarak dan waktu, kami bermaksud mengundang Bapak/Ibu/Saudara/i dalam Upacara Manusa Yadnya Metatah (Potong Gigi) pada:"
                 invitationLink = `https://www.eundangan.id/wikanka-photography/mepandes-16okt/?to=${invitationNewName}`;
             } else {
+				invitationHeader = "Atas asung kerta wara nugraha Ida Sang Hyang Widhi Wasa, tanpa mengurangi rasa hormat, karena keterbatasan jarak dan waktu, kami bermaksud mengundang Bapak/Ibu/Saudara/i dalam resepsi Upakara Karya Whraspati Kalpa dan Mapandes pada:"
                 invitationLink = `https://www.eundangan.id/wikanka-photography/resepsi-mepandes-19okt/?to=${invitationNewName}`;
             }
 
@@ -78,7 +82,7 @@
 *${invitationName}*
 
 *OM SWASTYASTU*,
-Atas asung kerta wara nugraha Ida Sang Hyang Widhi Wasa, tanpa mengurangi rasa hormat, karena keterbatasan jarak dan waktu, kami bermaksud mengundang Bapak/Ibu/Saudara/i dalam resepsi Upakara Karya Whraspati Kalpa dan Mapandes pada:
+${invitationHeader}
 
 Hari/tgl : ${invitationDate}
 Waktu : ${invitationTime}
