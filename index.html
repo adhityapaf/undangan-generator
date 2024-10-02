@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Undangan</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Buat Undangan</h1>
+                        <form id="invitationForm">
+                            <div class="mb-3">
+                                <h2 class="h4">Pilih tanggal</h2>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="invitationDate" id="date1" value="Jumat,11 Oktober 2024" required>
+                                    <label class="form-check-label" for="date1">Jumat, 11 Oktober 2024</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="invitationDate" id="date2" value="Rabu,16 Oktober 2024">
+                                    <label class="form-check-label" for="date2">Rabu, 16 Oktober 2024</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="invitationDate" id="date3" value="Sabtu,19 Oktober 2024">
+                                    <label class="form-check-label" for="date3">Sabtu, 19 Oktober 2024</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="invitationName" class="form-label">Nama undangan</label>
+                                <input type="text" class="form-control" id="invitationName" name="invitationName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="invitationTime" class="form-label">Waktu undangan</label>
+                                <input type="text" class="form-control" id="invitationTime" name="invitationTime" required>
+                            </div>
+                            <button type="submit" id="generateButton" class="btn btn-primary w-100">Buat Teks Undangan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-8">
+                <div id="result" class="card d-none">
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-3">Hasil Undangan:</h2>
+                        <pre id="invitationText" class="bg-light p-3 rounded"></pre>
+                        <button id="copyButton" class="btn btn-success mt-3">Copy Undangan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('invitationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const invitationDate = document.querySelector('input[name="invitationDate"]:checked').value;
+            const invitationName = document.getElementById('invitationName').value;
+            const invitationTime = document.getElementById('invitationTime').value;
+            const invitationNewName = invitationName.replace(/ /g, '+');
+            
+            let invitationLink;
+            if (invitationDate === "Jumat,11 Oktober 2024") {
+                invitationLink = `https://www.eundangan.id/wikanka-photography/rsi-gana-11okt/?to=${invitationNewName}`;
+            } else if (invitationDate === "Rabu,16 Oktober 2024") {
+                invitationLink = `https://www.eundangan.id/wikanka-photography/mepandes-16okt/?to=${invitationNewName}`;
+            } else {
+                invitationLink = `https://www.eundangan.id/wikanka-photography/resepsi-mepandes-19okt/?to=${invitationNewName}`;
+            }
+
+            const invitationText = `Kepada Yth.
+*${invitationName}*
+
+*OM SWASTYASTU*,
+Atas asung kerta wara nugraha Ida Sang Hyang Widhi Wasa, tanpa mengurangi rasa hormat, karena keterbatasan jarak dan waktu, kami bermaksud mengundang Bapak/Ibu/Saudara/i dalam resepsi Upakara Karya Whraspati Kalpa dan Mapandes pada:
+
+Hari/tgl : ${invitationDate}
+Waktu : ${invitationTime}
+Tempat : Jln. Pantai Purnama 81, Banjar Palak, Sukawati
+
+Kami sangat mengharapkan kehadiran bapak/ibu/saudara/i untuk memberikan doa restu dalam acara kami.
+
+Silahkan Klik Link Berikut : 
+${invitationLink}
+
+Merupakan suatu kehormatan dan kebahagian bagi kami apabila anda berkenan hadir. 
+
+Terima kasih.
+*OM SHANTI, SHANTI, SHANTI OM*`;
+
+            document.getElementById('invitationText').textContent = invitationText;
+            document.getElementById('result').classList.remove('d-none');
+        });
+
+        document.getElementById('copyButton').addEventListener('click', function() {
+            const invitationText = document.getElementById('invitationText').textContent;
+            navigator.clipboard.writeText(invitationText).then(function() {
+                alert('Teks undangan berhasil disalin!');
+            }, function(err) {
+                console.error('Gagal menyalin teks: ', err);
+            });
+        });
+    </script>
+</body>
+</html>
